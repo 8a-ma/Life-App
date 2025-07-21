@@ -52,8 +52,8 @@ class CourseList(db.Model):
 
 class Courses(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True,autoincrement=True)
-    # course_list_id = db.Column(db.Integer, ForeignKey('course_list.id'))
-    # notes_id = db.Column(db.Integer, ForeignKey('notes.id'))
+    course_list_id = db.Column(db.Integer, db.ForeignKey(CourseList.id))
+    notes_id = db.Column(db.Integer, db.ForeignKey(Notes.id))
     name = db.Column(db.String(100))
     status = db.Column(db.String(10))
     # progress = Column(Integer)
@@ -67,8 +67,8 @@ class WorkList(db.Model):
 
 class WorkJournal(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
-    # works_list_id = Column(Integer, ForeignKey('works_list.id'))
-    title = db.Columnu(db.String(100))
+    works_list_id = db.Column(db.Integer, db.ForeignKey(WorkList.id))
+    title = db.Column(db.String(100))
     created_at = db.Column(db.DateTime)
     content = db.Column(db.Text)
 
