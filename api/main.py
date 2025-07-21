@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask import jsonify
 from config import config
 from models import db
@@ -19,14 +19,43 @@ env = config['dev']
 app = create_app(env)
 
 
-@app.route('/', methods=['GET'])
-def get_data():
-    response = {
-        'data':{
-            'message': 'success'
-        }
-    }
-    return jsonify(response)
+@app.route('/calendar', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+
+@app.route('/to-do', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+
+
+@app.route('/courses_list', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+@app.route('/course/<course_id>', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+
+
+@app.route('/notes', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+
+
+@app.route('/projects_list', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+@app.route('/project/<project_id>', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+
+
+@app.route('/works_list', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+@app.route('/work/<work_id>', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+def data():
+    pass
+
 
 
 if __name__ == '__main__':
