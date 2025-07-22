@@ -13,10 +13,9 @@ class DailyToDo(db.Model):
 
 class YearAgenda(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
-    year = db.Column(db.Integer)
+    date = db.Column(db.Date, nullable=False)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    date = db.Column(db.Date, nullable=False)
 
 
 class AnnualEvents(db.Model):
