@@ -3,7 +3,7 @@ from flask import jsonify
 from config import config
 from models import db, YearAgenda
 
-from datetime import date
+from datetime import date, datetime
 
 
 def create_app(env):
@@ -21,7 +21,7 @@ env = config['dev']
 app = create_app(env)
 
 
-@app.route('/calendar', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
+@app.route('/calendar', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def manage_calendar():
     if request.method == 'GET':
         req_json = request.get_json(silent=True)
@@ -69,19 +69,86 @@ def manage_calendar():
 
 
 
-    elif request.method == 'UPDATE':
-        pass
+    elif request.method == 'PATCH':
+        req_json = request.get_json(silent=True)
+
+        id_ = int(req_json['id'])
+
+        date_ = req_json['date']
+        title = req_json['title']
+        description = req_json['description']
+
+        agenda_entry = YearAgenda.query.get(id_)
+
+        if agenda_entry:
+            agenda_entry.date = datetime.strptime(date_, '%Y-%m-%d')
+            agenda_entry.title = title
+            agenda_entry.description = description
+
+            db.session.commit()
+
+            return jsonify(
+            {
+                'data': {
+                    'message': 'Event update successfully',
+                    'status': True,
+                    'id': agenda_entry.id
+                }
+            }, 200
+        )
+        else:
+            return jsonify(
+            {
+                'data': {
+                    'message': 'Id agenda not found',
+                    'status': False,
+                    'id': agenda_entry.id
+                }
+            }, 404
+        )
+
 
     elif request.method == 'DELETE':
-        pass
+        req_json = request.get_json(silent=True)
+
+        id_ = int(req_json['id'])
+        
+        agenda_deleted = YearAgenda.query.get(id_)
+
+        if agenda_deleted:
+
+            db.session.delete(agenda_deleted)
+            db.session.commit()
+
+            return jsonify(
+                {
+                    'data': {
+                        'message': 'Event deleted successfully',
+                        'status': True,
+                        'id': id_
+                    }
+                }, 200
+            )
+        else:
+            return jsonify(
+            {
+                'data': {
+                    'message': 'Id agenda not found',
+                    'status': False,
+                    'id': id_
+                }
+            }, 404
+        )
+
 
     else:
         response = {
             'data': {
-                'messege': 'Error'
+                'messege': 'Error method not found',
+                'status': False
             }
         }
-        return jsonify(response)
+        return jsonify(response, 404)
 
 # @app.route('/to-do', methods=['GET', 'POST', 'UPDATE', 'DELETE'])
 # def data():
