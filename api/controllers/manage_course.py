@@ -6,11 +6,11 @@ manage_course = Blueprint('manage_course', __name__, url_prefix='/course')
 @manage_course.route('/<int:course_id>', methods=['GET'])
 def get_course_by_id(course_id):
     # req_json = request.get_json(silent=True)
-    records = Courses.query.filter(
+    record = Courses.query.filter(
         db.extract("id", Courses.id) == course_id
     ).all()
 
-    return jsonify(records), 200
+    return jsonify(record), 200
 
 @manage_course.route('/', methods=['GET'])
 def get_course():
@@ -45,6 +45,7 @@ def post_course():
                          )
     
     db.session.add(new_course)
+    db.session.commit()
     return jsonify(
         {
             'data': {
@@ -56,7 +57,7 @@ def post_course():
     )
 
 
-@manage_course.route('/<course_id>', methods=['PATCH'])
+@manage_course.route('/<int:course_id>', methods=['PATCH'])
 def patch_course(course_id):
     req_json = request.get_json(silent=True)
 

@@ -1,6 +1,6 @@
 venv/
 __pycache__/
-controllers/__pycache__/
+*/__pycache__/
 *.pyc
 !.gitignore
 notas.md

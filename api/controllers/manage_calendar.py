@@ -37,17 +37,28 @@ def post_agenda():
 
     new_agenda = YearAgenda(date=date_, title=title, description=description)
 
-    db.session.add(new_agenda)
-    db.session.commit()
+    if new_agenda:
 
-    return jsonify(
+        db.session.add(new_agenda)
+        db.session.commit()
+
+        return jsonify(
+            {
+                'data': {
+                    'message': 'Event create successfully',
+                    'status': True,
+                    'id': new_agenda.id
+                }
+            }, 201
+        )
+    else:
+        return jsonify(
         {
             'data': {
-                'message': 'Event create successfully',
-                'status': True,
-                'id': new_agenda.id
+                'message': 'Id agenda not found',
+                'status': False,
             }
-        }, 201
+        }, 404
     )
 
 @manage_calendar.route('/', methods=['PATCH'])
