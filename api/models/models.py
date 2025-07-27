@@ -5,10 +5,11 @@ db = SQLAlchemy()
 
 class DailyToDo(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
-    title = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    title = db.Column(db.String(150), nullable=False)
+    date_start = db.Column(db.Date, nullable=False)
+    date_finish = db.Column(db.Date)
     completed = db.Column(db.Boolean, nullable=False)
-    created_at = db.Column(db.Date, nullable=False)
+    
 
 
 class YearAgenda(db.Model):
