@@ -64,7 +64,7 @@ class Companys(db.Model):
 
 class WorkJournal(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
-    id_company = db.Column(db.Integer, db.ForeignKey(Company.id))
+    id_company = db.Column(db.Integer, db.ForeignKey(Companys.id))
     title = db.Column(db.String(100))
     created_at = db.Column(db.DateTime)
     description = db.Column(db.Text)
