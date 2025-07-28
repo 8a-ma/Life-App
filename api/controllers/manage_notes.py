@@ -39,9 +39,10 @@ def post_note():
     course_id = req_json['course_id']
 
     new_note = Notes(
+            course_id=course_id,
             title=title,
             description=description,
-            create_at=date_create
+            create_at=date_create,
         )
     
     db.session.add(new_note)

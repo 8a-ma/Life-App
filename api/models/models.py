@@ -57,10 +57,10 @@ class Courses_Notes(db.Model):
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, nullable=False)
 
-class Company(db.Model):
+class Companys(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
-    cargo = db.Column(db.String(100, nullable=False))
+    cargo = db.Column(db.String(100), nullable=False)
 
 class WorkJournal(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
