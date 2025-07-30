@@ -1,4 +1,4 @@
-from __init_ import create_app
+from api.flaskr import create_app
 from config import config
 
 env = config['dev']

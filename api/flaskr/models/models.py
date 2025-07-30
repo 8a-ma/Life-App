@@ -48,7 +48,7 @@ class Courses(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(100), nullable=True)
     status = db.Column(db.String(10), nullable=False)
-    progress = db.Column(db.Integer, nullalble=False)
+    progress = db.Column(db.Integer, nullable=False)
 
 class Courses_Notes(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
