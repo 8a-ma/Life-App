@@ -1,16 +1,16 @@
 import pytest
-from api.flaskr import create_app
+from src.__init__ import create_app
 from config import config
 
-from flaskr.models.models import db
-from flaskr.controllers.manage_calendar import manage_calendar
-from flaskr.controllers.manage_company import companies
-from flaskr.controllers.manage_course_notes import notes_course
-from flaskr.controllers.manage_course import manage_course
-from flaskr.controllers.manage_notes import notes
-from flaskr.controllers.manage_project import manage_project
-from flaskr.controllers.manage_todo import manage_to_do
-from flaskr.controllers.manage_work_journal import work_journal
+from src.models.models import db
+from src.controllers.manage_calendar import manage_calendar
+from src.controllers.manage_company import companies
+from src.controllers.manage_course_notes import notes_course
+from src.controllers.manage_course import manage_course
+from src.controllers.manage_notes import notes
+from src.controllers.manage_project import manage_project
+from src.controllers.manage_todo import manage_to_do
+from src.controllers.manage_work_journal import work_journal
 
 @pytest.fixture()
 def app():
@@ -33,12 +33,9 @@ def app():
 
     yield app
 
+    with app.app_context():
+        db.drop_all()
+
 @pytest.fixture()
 def client(app):
     return app.test_client()
-
-
-@pytest.fixture()
-def runner(app):
-    return app.test_cli_runner()
-

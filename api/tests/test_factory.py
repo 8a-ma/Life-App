@@ -1,4 +1,4 @@
-from api.flaskr import create_app
+from src.__init__ import create_app
 from config import config
 
 def test_config():
