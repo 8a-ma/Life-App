@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models.models import db, Courses
+from src.models import db, Courses
 
 manage_course = Blueprint('manage_course', __name__, url_prefix='/course')
 

@@ -1,50 +1,41 @@
-# import pytest
-# from src import create_app
+import pytest
+from src import create_app
+from src.models import db
+from config import config
 
+from src.controllers.manage_calendar import manage_calendar
+from src.controllers.manage_company import companies
+from src.controllers.manage_course_notes import notes_course
+from src.controllers.manage_course import manage_course
+from src.controllers.manage_notes import notes
+from src.controllers.manage_project import manage_project
+from src.controllers.manage_todo import manage_to_do
+from src.controllers.manage_work_journal import work_journal
 
-# from config import config
+@pytest
+def app():
+    env = config['test']
+    app = create_app(env)
 
-# from src.models.models import db
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
 
-# from src.controllers.manage_calendar import manage_calendar
-# from src.controllers.manage_company import companies
-# from src.controllers.manage_course_notes import notes_course
-# from src.controllers.manage_course import manage_course
-# from src.controllers.manage_notes import notes
-# from src.controllers.manage_project import manage_project
-# from src.controllers.manage_todo import manage_to_do
-# from src.controllers.manage_work_journal import work_journal
+    app.register_blueprint(manage_calendar)
+    app.register_blueprint(companies)
+    app.register_blueprint(notes_course)
+    app.register_blueprint(manage_course)
+    app.register_blueprint(notes)
+    app.register_blueprint(manage_project)
+    app.register_blueprint(manage_to_do)
+    app.register_blueprint(work_journal)
 
-# @pytest.fixture(scope="session")
-# def flask_app():
-#     env = config['test']
-#     app = create_app(env)
+    yield app
 
-#     app.register_blueprint(manage_calendar)
-#     app.register_blueprint(companies)
-#     app.register_blueprint(notes_course)
-#     app.register_blueprint(manage_course)
-#     app.register_blueprint(notes)
-#     app.register_blueprint(manage_project)
-#     app.register_blueprint(manage_to_do)
-#     app.register_blueprint(work_journal)
+    with app.app_context():
+        db.drop_all()
 
-#     client = app.test_client()
-
-#     ctx = app.test_request_context()
-#     ctx.push()
-
-#     yield client
-
-#     ctx.pop()
-
-# @pytest.fixture(scope="session")
-# def app_with_db(app):
-#     db.create_all()
-
-#     yield app
-
-#     db.session.commit()
-
-#     db.drop_all()
-
+@pytest.fixture
+def client(app):
+    return app.test_client()
+    

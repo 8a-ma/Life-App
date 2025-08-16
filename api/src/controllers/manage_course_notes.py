@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models.models import db, Courses_Notes
+from src.models import db, Courses_Notes
 
 from datetime import date
 

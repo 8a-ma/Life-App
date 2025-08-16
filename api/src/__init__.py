@@ -1,5 +1,5 @@
 from flask import Flask
-from models.models import db
+from src.models import db
 from controllers.manage_calendar import manage_calendar
 from controllers.manage_company import companies
 from controllers.manage_course_notes import notes_course
