@@ -1,13 +1,14 @@
 from flask import Flask
 from src.models import db
-from controllers.manage_calendar import manage_calendar
-from controllers.manage_company import companies
-from controllers.manage_course_notes import notes_course
-from controllers.manage_course import manage_course
-from controllers.manage_notes import notes
-from controllers.manage_project import manage_project
-from controllers.manage_todo import manage_to_do
-from controllers.manage_work_journal import work_journal
+
+from src.controllers.manage_calendar import manage_calendar
+from src.controllers.manage_company import companies
+from src.controllers.manage_course_notes import notes_course
+from src.controllers.manage_course import manage_course
+from src.controllers.manage_notes import notes
+from src.controllers.manage_project import manage_project
+from src.controllers.manage_todo import manage_to_do
+from src.controllers.manage_work_journal import work_journal
 
 def create_app(env):
     app = Flask(__name__)
