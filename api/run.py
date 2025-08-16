@@ -1,4 +1,4 @@
-from api.src import create_app
+from api.src.main import create_app
 from config import config
 
 env = config['dev']
